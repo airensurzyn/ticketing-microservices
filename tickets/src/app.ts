@@ -2,8 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import { json} from 'body-parser';
 import cookieSession from 'cookie-session';
+import { createTicketRouter } from './routes/new';
 
-import { errorHandler, NotFoundError } from '@airentickets/common';
+import { errorHandler, NotFoundError, currentUser } from '@airentickets/common';
 
 
 
@@ -15,8 +16,10 @@ app.use(
         signed: false,
         secure: process.env.NODE_ENV !== 'test'
     })
-)
+);
+app.use(currentUser);
 
+app.use(createTicketRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();
