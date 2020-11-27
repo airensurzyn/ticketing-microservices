@@ -41,6 +41,20 @@ const ticketSchema = new mongoose.Schema({
 });
 
 ticketSchema.set('versionKey', 'version');
+
+/** 
+If you want to do versioning without mongoose-update-if-current-module.
+Would remove the 'updateIfCurrentPlugin plugin method below this method.
+
+ticketSchema.pre('save',  function(done) {
+    // @ts-ignore
+    this.$where = {
+        version: this.get('version') - 1
+    }
+    done();
+});
+**/
+
 ticketSchema.plugin(updateIfCurrentPlugin);
 
 // Find the document with id and previous version - used for solving updating concurrency issue
