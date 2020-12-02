@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { createTicketRouter } from '../routes/new';
 
 interface TicketAttrs {
     title: string;
